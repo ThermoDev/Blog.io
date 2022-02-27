@@ -43,17 +43,27 @@
                 @auth
                     <a href="#"
                         class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
-                            border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">
+                            border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 mr-3 lg:mt-0">
                         Profile
                     </a>
+                    <form action="{{ route('logout') }}" method="post" class="inline">
+                        @csrf
+                        <button type="submit" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                        border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">Logout</button>
+                    </form>
+                    {{-- <a href="#"
+                        class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+                            border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">
+                        Logout
+                    </a> --}}
                 @endauth
                 @guest
                     <a href="{{ route('register') }}"
                         class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
-                            border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">
+                            border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 mr-3 lg:mt-0">
                         Register
                     </a>
-                    <a href="#"
+                    <a href="{{ route('login') }}"
                         class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
                             border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">
                         Login
