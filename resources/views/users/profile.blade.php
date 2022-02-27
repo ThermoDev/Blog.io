@@ -9,11 +9,39 @@
                 </div>
             @endif
             @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6"
+                    role="alert">
                     {{ session('success') }}
                 </div>
             @endif
 
+            <h1 class="text-xl font-medium mb-2">Update Bio</h1>
+            <form action="{{ route('updateBio') }}" method="post" class="mb-4">
+                @csrf
+                <div class="mb-4">
+                    <label for="bio" class="sr-only">Update Bio</label>
+                    <textarea name="bio" id="bio" cols="30" rows="4"
+                    class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('bio') border-red-500 @enderror"
+                    placeholder="{{ $bio }}" value="{{ old('bio') }}"></textarea>
+
+                    @error('bio')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">
+                        Update Bio!
+                    </button>
+                </div>
+            </form>
+
+            <br>
+            <hr>
+            <br>
+            <h1 class="text-xl font-medium mb-2">Update Password</h1>
             <form action="{{ route('updatePassword') }}" method="post">
                 @csrf
                 <div class="mb-4">

@@ -12,7 +12,10 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('users.profile');
+        $user = Auth::user();
+        return view('users.profile', [
+            "bio" => $user->bio
+        ]);
     }
 
     public function updateBio(Request $request)
@@ -20,11 +23,17 @@ class ProfileController extends Controller
         $this->validate($request, [
             'bio' => 'required|max:255'
         ]);
+
+        $user = Auth::user();
+
+        $user->bio = $request->bio;
+        $user->save();
+
+        return back()->with('success', 'Bio changed successfully!');
     }
 
     public function updatePassword(Request $request)
     {
-        // dd($request);
         $this->validate($request, [
             'old_password' => 'required',
             'new_password' => 'required|confirmed',

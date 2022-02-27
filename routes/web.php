@@ -25,8 +25,8 @@ Route::group(['middleware' => ['xss.sanitizer']], function () {
     Route::post('/login', [LoginController::class, 'authenticate']);
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'updatePassword'])->name('updatePassword');
-
+    Route::post('/profile/updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
+    Route::post('/profile/update-bio', [ProfileController::class, 'updateBio'])->name('updateBio');
 });
 
 Route::post('/logout', [LogoutController::class, 'deauthenticate'])->name('logout');
