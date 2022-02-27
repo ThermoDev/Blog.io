@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-200">
     <nav class="flex items-center justify-between flex-wrap bg-blue-500 p-6 mb-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 -10 54 54" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
         </div> --}}
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+            <a href="{{ route('home') }}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                 Home
             </a>
             <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
@@ -33,7 +33,7 @@
             </a>
             </div>
             <div>
-            <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
+            <a href="{{ route('register') }}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white
             border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">
                 Register
             </a>
