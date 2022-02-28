@@ -5,6 +5,8 @@
         <div class="w-3/4 lg:w-5/12 bg-white p-6 rounded-lg">
             <div class="bg-white p-6 rounded-lg">
 
+                <x-alerts />
+
                 <div class="flex items-center justify-between mb-6">
                     <h1 class="text-2xl font-medium text-center">All blogs!</h1>
                     @auth

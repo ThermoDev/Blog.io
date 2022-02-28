@@ -51,6 +51,6 @@ class BlogRepository implements BlogRepositoryInterface
 
     public function updateBlog($blogId, $title, $content)
     {
-        return Order::whereId($blogId)->update(["title" => $title, "content" => $content]);
+        return Blog::whereId($blogId)->update(["title" => $title, "content" => $content]);
     }
 }

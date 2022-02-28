@@ -37,9 +37,11 @@ Route::get('/admin/activity', [ActivityController::class, 'index'])->name('activ
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blogs/view/{blogId}', [BlogController::class, 'viewBlog'])->name('blog');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'xss.sanitizer']], function () {
     Route::get('/blogs/create', [BlogController::class, 'createBlog'])->name('createBlog');
-    Route::post('/blogs/create', [BlogController::class, 'store'])->name('test');
+    Route::post('/blogs/create', [BlogController::class, 'store']);
+    Route::get('/blogs/edit/{blogId}', [BlogController::class, 'editBlog'])->name('editBlog');
+    Route::patch('/blogs/edit/{blogId}', [BlogController::class, 'patch']);
 });
 
 Route::get('/', function () {
