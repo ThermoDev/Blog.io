@@ -26,7 +26,7 @@
                     class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     Home
                 </a>
-                <a href="#responsive-header"
+                <a href="{{ route('blogs') }}"
                     class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     Blogs
                 </a>

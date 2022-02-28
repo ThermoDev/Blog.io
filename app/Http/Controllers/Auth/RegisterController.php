@@ -21,7 +21,6 @@ class RegisterController extends Controller
 
     public function createUser(Request $request)
     {
-
         $messages = [
             'birthdate.before' => 'You must be at least 18 years old to sign up.',
         ];
