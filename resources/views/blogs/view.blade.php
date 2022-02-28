@@ -5,11 +5,23 @@
         <div class="w-3/4 lg:w-5/12 bg-white p-6 rounded-lg text-center">
             <div class="max-w-sm w-full max-w-full">
                 @if ($editable)
-                    <div class="mb-6 flex justify-end">
-                        <a type="button" href="{{ route('editBlog', $blog->id) }}"
-                            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Edit Blog
-                        </a>
+                    <div class="flex justify-between mb-6">
+                        <div>
+                            <form action="{{ route('destroyBlog', $blog->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    Delete Blog
+                                </button>
+                            </form>
+                        </div>
+                        <div>
+                            <a type="button" href="{{ route('editBlog', $blog->id) }}"
+                                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Edit Blog
+                            </a>
+                        </div>
                     </div>
                 @endif
                 <div

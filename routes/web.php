@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'xss.sanitizer']], function () {
     Route::post('/blogs/create', [BlogController::class, 'store']);
     Route::get('/blogs/edit/{blogId}', [BlogController::class, 'editBlog'])->name('editBlog');
     Route::patch('/blogs/edit/{blogId}', [BlogController::class, 'patch']);
+    Route::delete('/blogs/delete/{post}', [BlogController::class, 'destroy'])->name('destroyBlog');
 });
 
 Route::get('/', function () {
