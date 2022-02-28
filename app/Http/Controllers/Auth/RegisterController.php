@@ -16,12 +16,18 @@ class RegisterController extends Controller
 
     public function createUser(Request $request)
     {
+
+        $messages = [
+            'birthdate.before' => 'You must be at least 18 years old to sign up.',
+        ];
+
         // Validate Request
         $this->validate($request, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|confirmed',
-        ]);
+            'birthdate' => 'required|date|before:-18 years',
+        ], $messages);
 
         // Create User
         User::create([
@@ -29,6 +35,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'bio' => 'Hi! I\'m new to Blog.io.',
             'password' => Hash::make($request->password),
+            'birthdate' => $request->birthdate
         ]);
 
         // Sign User in
