@@ -24,10 +24,12 @@ class ProfileController extends Controller
             'bio' => 'required|max:255'
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
 
         $user->bio = $request->bio;
         $user->save();
+
+        activity()->causedBy($user)->log("A user updated their bio to: $request->bio");
 
         return back()->with('success', 'Bio changed successfully!');
     }
@@ -39,7 +41,7 @@ class ProfileController extends Controller
             'new_password' => 'required|confirmed',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
 
         if (!(Hash::check($request->old_password, $user->password))) {
             return back()->with('msg', 'The password you entered does not match with the current password.');
@@ -51,6 +53,8 @@ class ProfileController extends Controller
 
         $user->password = Hash::make($request->new_password);
         $user->save();
+
+        activity()->causedBy($user)->log("A user updated their password.");
 
         return back()->with('success', 'Password changed successfully!');
     }

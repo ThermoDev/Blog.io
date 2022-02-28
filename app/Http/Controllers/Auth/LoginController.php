@@ -29,6 +29,10 @@ class LoginController extends Controller
             return back()->with('msg', 'Invalid login details provided...');
         }
 
+        $user = auth()->user();
+
+        activity()->causedBy($user)->log("A user logged in.");
+
         return redirect()->route('home');
     }
 }

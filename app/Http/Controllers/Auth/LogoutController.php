@@ -10,6 +10,10 @@ class LogoutController extends Controller
 {
     public function deauthenticate()
     {
+
+        $user = auth()->user();
+        activity()->causedBy($user)->log("A user logged out.");
+
         auth()->logout();
 
         return redirect()->route('home');
