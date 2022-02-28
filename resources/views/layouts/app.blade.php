@@ -30,12 +30,12 @@
                     class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     Blogs
                 </a>
-                @auth
+                @if (auth()->user() && auth()->user()->admin)
                     <a href="{{ route('activities') }}"
                         class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
                         Activity Logs
                     </a>
-                @endauth
+                @endif
             </div>
 
             <div>

@@ -25,7 +25,7 @@ class BlogController extends Controller
         $editable = false;
 
         // Allow edits
-        if (auth()->user()->id == $blog->user->id) {
+        if (auth()->user() && auth()->user()->id == $blog->user->id) {
             $editable = true;
         }
 
@@ -42,7 +42,8 @@ class BlogController extends Controller
         $blog = $this->blogRepository->getBlogById($blogId);
 
         if (auth()->user()->id != $blog->user->id) {
-            return redirect('blogs')->with('msg', 'Unauthorized access... Nice try!');
+            activity()->causedBy(auth()->user())->log("A user attempted to edit a blog with the ID: {$blogId}");
+            return redirect()->route('blogs')->with('msg', 'Unauthorized access... Nice try!');
         }
 
         return view('blogs.edit', ["blog" => $blog]);
@@ -56,6 +57,9 @@ class BlogController extends Controller
         ]);
 
         $blog = $this->blogRepository->createblog($request->title, $request->content, $request->user()->id);
+
+        activity()->causedBy(auth()->user())->log("A user created a blog with the ID: {$blog->id}");
+
         return redirect()->route('blog', ["blogId" => $blog->id]);
     }
 
@@ -69,10 +73,12 @@ class BlogController extends Controller
         $blog = $this->blogRepository->getBlogById($blogId);
 
         if (auth()->user()->id != $blog->user->id) {
-            return redirect('blogs')->with('msg', 'Unauthorized access... Nice try!');
+            activity()->causedBy(auth()->user())->log("A user attempted to patch a blog with the ID: {$blogId}");
+            return redirect()->route('blogs')->with('msg', 'Unauthorized access... Nice try!');
         }
 
         $blog = $this->blogRepository->updateBlog($blogId, $request->title, $request->content);
+        activity()->causedBy(auth()->user())->log("A user updated a blog with the ID: {$blogId}");
         return redirect()->route('blog', ["blogId" => $blogId])->with('success', 'Blog updated successfully!');;
     }
 }

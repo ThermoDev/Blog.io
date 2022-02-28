@@ -17,6 +17,10 @@ class ActivityController extends Controller
 
     public function index()
     {
+        if (!auth()->user()->admin) {
+            activity()->causedBy(auth()->user())->log("A user attempted to access the admin panel");
+            return redirect()->route('home')->with('msg', 'Unauthorized access... Nice try!');
+        }
         $activities = $this->activityRepository->getAllActivitiesByLatestWithPaginate(20);
 
         return view('admin.activity', [

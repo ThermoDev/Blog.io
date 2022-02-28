@@ -45,7 +45,7 @@ class RegisterController extends Controller
         // Sign User in
         auth()->attempt($request->only(['email', 'password']));
 
-        activity()->causedBy($user)->log("A user registered to blog.io!");
+        activity()->log("A user with the email {$request->email} registered to blog.io!");
 
         // Redirect
         return redirect()->route('home');

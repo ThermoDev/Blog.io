@@ -3,6 +3,7 @@
 @section('content')
     <div class="flex justify-center mb-6">
         <div class="w-3/4 lg:w-5/12 bg-white p-6 rounded-lg text-center">
+            <x-alerts />
             @auth
                 <p>Hello <span class="font-bold">{{ auth()->user()->name }}</span>!</p>
             @endauth
