@@ -19,6 +19,7 @@
                 </path>
                 <span class="font-semibold text-xl tracking-tight">Blog.io</span>
         </div>
+
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
                 <a href="{{ route('home') }}"
@@ -29,10 +30,14 @@
                     class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
                     Blogs
                 </a>
-                <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
-                    Activity Logs
-                </a>
+                @auth
+                    <a href="{{ route('activities') }}"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
+                        Activity Logs
+                    </a>
+                @endauth
             </div>
+
             <div>
                 @auth
                     <a href="{{ route('profile') }}"

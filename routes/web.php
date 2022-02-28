@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['xss.sanitizer']], function () {
 });
 
 Route::post('/logout', [LogoutController::class, 'deauthenticate'])->name('logout');
+
+Route::get('/admin/activity', [ActivityController::class, 'index'])->name('activities');
 
 Route::get('/', function () {
     return view('index');
