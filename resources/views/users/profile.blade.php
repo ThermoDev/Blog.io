@@ -15,11 +15,26 @@
                 </div>
             @endif
 
-            <h1 class="text-xl font-medium mb-2">Update Bio</h1>
+            <h1 class="text-2xl font-medium mb-2 text-center">Update Basic Info</h1>
             <form action="{{ route('updateBio') }}" method="post" class="mb-4">
                 @csrf
                 <div class="mb-4">
-                    <label for="bio" class="sr-only">Update Bio</label>
+                    <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Name
+                    </label>
+                    <input type="text" name="name" id="name" placeholder="{{ $name }}"
+                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
+                        value="{{ old('name') }}">
+                    @error('name')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Bio
+                    </label>
                     <textarea name="bio" id="bio" cols="30" rows="4"
                     class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('bio') border-red-500 @enderror"
                     placeholder="{{ $bio }}" value="{{ old('bio') }}"></textarea>
@@ -41,7 +56,7 @@
             <br>
             <hr>
             <br>
-            <h1 class="text-xl font-medium mb-2">Update Password</h1>
+            <h1 class="text-2xl font-medium mb-2 text-center">Update Password</h1>
             <form action="{{ route('updatePassword') }}" method="post">
                 @csrf
                 <div class="mb-4">

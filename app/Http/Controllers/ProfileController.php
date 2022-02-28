@@ -18,25 +18,36 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         return view('users.profile', [
-            "bio" => $user->bio
+            "bio" => $user->bio,
+            "name" => $user->name
         ]);
     }
 
-    public function updateBio(Request $request)
+    public function updateBasicInfo(Request $request)
     {
         $this->validate($request, [
-            'bio' => 'required|max:255'
+            'bio' => 'required_without_all:name|max:255',
+            'name' => 'required_without_all:bio|max:255'
         ]);
 
         $user = auth()->user();
 
-        $user->bio = $request->bio;
+        if ($request->bio) {
+            $user->bio = $request->bio;
+            activity()->causedBy($user)->log("A user updated their bio to: $request->bio");
+        }
+
+        if ($request->name) {
+            $user->name = $request->name;
+            activity()->causedBy($user)->log("A user updated their name to: $request->name");
+        }
+
         $user->save();
 
-        activity()->causedBy($user)->log("A user updated their bio to: $request->bio");
 
-        return back()->with('success', 'Bio changed successfully!');
+        return back()->with('success', 'Profile info changed successfully!');
     }
 
     public function updatePassword(Request $request)
