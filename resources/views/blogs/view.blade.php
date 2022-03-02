@@ -32,7 +32,10 @@
                     </div>
                     <div class="flex items-center justify-center">
                         <div class="text-sm">
-                            <p class="text-gray-900 leading-none">{{ $blog->user->name }}</p>
+                                <a href="{{ route('profile', $blog->user->id) }}"
+                                    class="font-bold text-gray-600 hover:text-gray-900">
+                                    {{ $blog->user->name }}
+                                </a>
                             <p class="text-gray-600">{{ $blog->created_at->diffForHumans() }}</p>
                         </div>
                     </div>

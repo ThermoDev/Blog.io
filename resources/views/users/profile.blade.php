@@ -5,87 +5,50 @@
         <div class="w-3/4 lg:w-5/12 bg-white p-6 rounded-lg">
             <x-alerts />
 
-            <h1 class="text-2xl font-medium mb-2 text-center">Update Basic Info</h1>
-            <form action="{{ route('updateBasicInfo') }}" method="post" class="mb-4">
-                @csrf
-                <div class="mb-4">
-                    <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Name
-                    </label>
-                    <input type="text" name="name" id="name" placeholder="{{ $name }}"
-                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
-                        value="{{ old('name') }}">
-                    @error('name')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
+            @if ($editable)
+                <div class="flex justify-between mb-6">
+                    <div></div>
+                    <div>
+                        <a type="button" href="{{ route('editProfile') }}"
+                            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Edit Profile
+                        </a>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Bio
-                    </label>
-                    <textarea name="bio" id="bio" cols="30" rows="4"
-                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('bio') border-red-500 @enderror"
-                        placeholder="{{ $bio }}" value="{{ old('bio') }}"></textarea>
+            @endif
 
-                    @error('bio')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+            <h1 class="text-3xl font-medium mb-2 text-center">Profile Page</h1>
+            <h1 class="text-2xl font-medium mb-4 text-center">{{ $name }}</h1>
 
-                <div>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">
-                        Update Bio!
-                    </button>
+            <div
+                class="w-full border-r mb-4 border-b border-l border-gray-400 border-t bg-white rounded p-4 flex flex-col justify-between leading-normal">
+                <div class="mb-8">
+                    <div class="text-gray-900 font-bold text-xl mb-2">Bio:</div>
+                    <p class="text-gray-700 text-base text-left">{{ $bio }}</p>
                 </div>
-            </form>
+            </div>
 
-            <br>
-            <hr>
-            <br>
-            <h1 class="text-2xl font-medium mb-2 text-center">Update Password</h1>
-            <form action="{{ route('updatePassword') }}" method="post">
-                @csrf
-                <div class="mb-4">
-                    <label for="old_password" class="sr-only">Current password</label>
-                    <input type="password" name="old_password" id="old_password" placeholder="Current password"
-                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror">
-                    @error('old_password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="new_password" class="sr-only">New password</label>
-                    <input type="password" name="new_password" id="new_password" placeholder="New Password"
-                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror">
-                    @error('new_password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="new_password_confirmation" class="sr-only">New password confirmation</label>
-                    <input type="password" name="new_password_confirmation" id="new_password_confirmation"
-                        placeholder="Confirm the new password"
-                        class="shadow appearance-none border rounded-lg w-full py-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror">
-                    @error('new_password_confirmation')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded font-medium w-full">
-                        Change Password
-                    </button>
-                </div>
-            </form>
+            <div class="mt-4">
+                <div class="text-gray-900 font-bold text-xl mb-4">Blogs created by {{ $name }}</div>
+                @foreach ($blogs as $blog)
+                    <div class="mb-4">
+                        <a class="mb-2 inline-block align-baseline font-bold text-xl text-blue-500 hover:text-blue-800"
+                            href="{{ route('blog', $blog->id) }} ">
+                            {{ $blog->title }}</a>
+                        <span class="text-gray-600 text-sm">{{ $blog->created_at->diffForHumans() }}</span>
+                        <hr>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Pagination --}}
+            {{ $blogs->links() }}
+
+            <div class="mt-6">
+                <a type="button" href="{{ url()->previous() }}"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    < Go back </a>
+            </div>
         </div>
     </div>
 @endsection

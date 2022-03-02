@@ -35,6 +35,11 @@ class BlogRepository implements BlogRepositoryInterface
         return Blog::latest()->paginate($paginateNumber);
     }
 
+    public function getAllUserBlogsByLatestWithPaginate($paginateNumber, $userId)
+    {
+        return Blog::latest()->where('user_id', $userId)->paginate($paginateNumber);
+    }
+
     public function deleteBlog($blogId)
     {
         return Blog::destroy($blogId);

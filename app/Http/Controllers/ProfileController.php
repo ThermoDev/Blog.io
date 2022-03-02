@@ -7,19 +7,40 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Interfaces\BlogRepositoryInterface;
 
 class ProfileController extends Controller
 {
-    public function __construct()
+    public function __construct(BlogRepositoryInterface $blogRepository)
     {
-        $this->middleware('auth');
+        $this->blogRepository = $blogRepository;
     }
 
-    public function index()
+    public function index($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $editable = false;
+
+        if (auth()->user() && auth()->user()->id == $user->id) {
+            $editable = true;
+        }
+
+        $blogs = $this->blogRepository->getAllUserBlogsByLatestWithPaginate(10, $user->id);
+
+        return view('users.profile', [
+            "bio" => $user->bio,
+            "name" => $user->name,
+            "editable" => $editable,
+            "blogs" => $blogs
+        ]);
+    }
+
+    public function editProfile()
     {
         $user = Auth::user();
 
-        return view('users.profile', [
+        return view('users.edit', [
             "bio" => $user->bio,
             "name" => $user->name
         ]);
@@ -46,7 +67,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return back()->with('success', 'Profile info changed successfully!');
+        return redirect()->route('profile', ["userId" => $user->id])->with('success', 'Profile info  successfully!');
     }
 
     public function updatePassword(Request $request)
